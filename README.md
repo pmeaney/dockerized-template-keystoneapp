@@ -1,3 +1,15 @@
+# Keystone Project Template
+
+### Added in: Docker Compose for Postgres hosting.
+
+- I added in a `./database-docker-postgres` directory containing a postgres docker compose file, and an init script which seems to be required for project setup. Prisma expects a user with certain permissions. So, this setup seems to work.
+
+# Below: initial project docs
+
+The below docs were created during project scaffolding via: `npm create keystone-app@latest example-keystoneapp`
+
+---
+
 # Keystone Project Starter
 
 Welcome to Keystone!
