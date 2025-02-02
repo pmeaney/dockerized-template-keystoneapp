@@ -1,0 +1,24 @@
+# docker compose -f ./database-docker-postgres/docker-compose.yml exec db psql -U keystoneuser -d keystonedb
+# docker compose -f ./database-docker-postgres/docker-compose.yml exec db psql -U keystoneuser -d postgres
+version: "3.8"
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: keystonedb
+      POSTGRES_PASSWORD: keystonepass
+      POSTGRES_USER: keystoneuser
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-scripts:/docker-entrypoint-initdb.d # Add this line
+    networks:
+      - keystone-network
+
+volumes:
+  postgres_data:
+
+networks:
+  keystone-network:
+    driver: bridge
