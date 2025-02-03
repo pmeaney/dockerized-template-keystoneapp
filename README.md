@@ -17,6 +17,7 @@ npm run dev
 # http://localhost:3000/api/graphql > query a post
 ```
 
+If you click the three dots button, you get a link to a few things, including the Built in GraphQL API Explorer (http://localhost:3000/api/graphql)
 ![Keystone default dashboard](/docs/dashboard-img1.png)
 
 ### env vars
