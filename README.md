@@ -11,6 +11,22 @@ docker compose -f ./database-docker-postgres/docker-compose.yml up
 
 # then run KeystoneJS
 npm run dev
+
+# Now you can visit:
+# http://localhost:3000/ > log in > create a post
+# http://localhost:3000/api/graphql > query a post
+```
+
+![Keystone default dashboard](https://github.com/pmeaney/dockerized-template-keystoneapp/tree/main/docs/dashboard-img1.png)
+
+### env vars
+
+```bash
+# need a SESSION_SECRET in .env file b/c auth.ts expects one here:
+# secret: process.env.SESSION_SECRET,
+# Generate one with:
+# node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
+
 ```
 
 ---
