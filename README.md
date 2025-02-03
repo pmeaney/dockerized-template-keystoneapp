@@ -19,7 +19,6 @@ npm run dev
 
 If you click the three dots button, you get a link to a few things, including the Built in GraphQL API Explorer (http://localhost:3000/api/graphql)
 ![Keystone Default Dashboard](/docs/dashboard-img1.png)
-![Keystone GraphQL Example](/docs/graphql-example-posts.png)
 
 ### env vars
 
@@ -37,17 +36,19 @@ See the .example-env.env for the current state of the .env
 - Create a post in the Keystone Admin Dashboard
 - Visit the GraphQL query tool
 - Try this out:
-  - ```graphql
-    query {
-      posts {
-        id
-        title
-        content {
-          document
+  - ````graphql
+        query {
+          posts {
+            id
+            title
+            content {
+              document
+            }
+          }
         }
-      }
-    }
-    ```
+        ```
+    ![Keystone GraphQL Example](/docs/graphql-example-posts.png)
+    ````
 
 ---
 
