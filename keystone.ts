@@ -5,6 +5,11 @@
 // Keystone imports the default export of this file, expecting a Keystone configuration object
 //   you can find out more at https://keystonejs.com/docs/apis/config
 
+import "dotenv/config";
+// or
+import * as dotenv from "dotenv";
+dotenv.config();
+
 import { config } from "@keystone-6/core";
 
 // to keep this file tidy, we define our schema in a different file
@@ -16,6 +21,9 @@ import { withAuth, session } from "./auth";
 
 export default withAuth(
   config({
+    server: {
+      port: process.env.PORT ? parseInt(process.env.PORT) : 3000,
+    },
     db: {
       provider: "postgresql",
       url: "postgres://keystoneuser:keystonepass@localhost:5432/keystonedb",
