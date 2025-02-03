@@ -17,7 +17,7 @@ npm run dev
 # http://localhost:3000/api/graphql > query a post
 ```
 
-![Keystone default dashboard](https://github.com/pmeaney/dockerized-template-keystoneapp/tree/main/docs/dashboard-img1.png)
+![Keystone default dashboard](/docs/dashboard-img1.png)
 
 ### env vars
 
