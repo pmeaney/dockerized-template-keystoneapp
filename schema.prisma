@@ -36,3 +36,39 @@ model Tag {
   name  String @default("")
   posts Post[] @relation("Post_tags")
 }
+
+model PortfolioItem {
+  id                  String  @id @default(cuid())
+  title               String  @default("")
+  subtitle            String  @default("")
+  badges              Badge[] @relation("Badge_portfolioItems")
+  sourceCodeUrl       String  @default("")
+  cardImage_id        String?
+  cardImage_filesize  Int?
+  cardImage_width     Int?
+  cardImage_height    Int?
+  cardImage_extension String?
+  heroImage_id        String?
+  heroImage_filesize  Int?
+  heroImage_width     Int?
+  heroImage_height    Int?
+  heroImage_extension String?
+  content             Json    @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+}
+
+model Badge {
+  id             String          @id @default(cuid())
+  name           String          @default("")
+  color          String?
+  portfolioItems PortfolioItem[] @relation("Badge_portfolioItems")
+}
+
+model Image {
+  id              String  @id @default(cuid())
+  image_id        String?
+  image_filesize  Int?
+  image_width     Int?
+  image_height    Int?
+  image_extension String?
+  altText         String  @default("")
+}

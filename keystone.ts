@@ -22,5 +22,16 @@ export default withAuth(
     },
     lists,
     session,
+    storage: {
+      my_local_images: {
+        kind: "local",
+        type: "image",
+        generateUrl: (path) => `/images${path}`,
+        serverRoute: {
+          path: "/images",
+        },
+        storagePath: "public/images",
+      },
+    },
   })
 );

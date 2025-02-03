@@ -260,6 +260,226 @@ input TagCreateInput {
   posts: PostRelateToManyForCreateInput
 }
 
+type PortfolioItem {
+  id: ID!
+  title: String
+  subtitle: String
+  badges(where: BadgeWhereInput! = {}, orderBy: [BadgeOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: BadgeWhereUniqueInput): [Badge!]
+  badgesCount(where: BadgeWhereInput! = {}): Int
+  sourceCodeUrl: String
+  cardImage: ImageFieldOutput
+  heroImage: ImageFieldOutput
+  content: PortfolioItem_content_Document
+}
+
+type ImageFieldOutput {
+  id: ID!
+  filesize: Int!
+  width: Int!
+  height: Int!
+  extension: ImageExtension!
+  url: String!
+}
+
+enum ImageExtension {
+  jpg
+  png
+  webp
+  gif
+}
+
+type PortfolioItem_content_Document {
+  document(hydrateRelationships: Boolean! = false): JSON!
+}
+
+input PortfolioItemWhereUniqueInput {
+  id: ID
+}
+
+input PortfolioItemWhereInput {
+  AND: [PortfolioItemWhereInput!]
+  OR: [PortfolioItemWhereInput!]
+  NOT: [PortfolioItemWhereInput!]
+  id: IDFilter
+  title: StringFilter
+  subtitle: StringFilter
+  badges: BadgeManyRelationFilter
+  sourceCodeUrl: StringFilter
+}
+
+input BadgeManyRelationFilter {
+  every: BadgeWhereInput
+  some: BadgeWhereInput
+  none: BadgeWhereInput
+}
+
+input PortfolioItemOrderByInput {
+  id: OrderDirection
+  title: OrderDirection
+  subtitle: OrderDirection
+  sourceCodeUrl: OrderDirection
+}
+
+input PortfolioItemUpdateInput {
+  title: String
+  subtitle: String
+  badges: BadgeRelateToManyForUpdateInput
+  sourceCodeUrl: String
+  cardImage: ImageFieldInput
+  heroImage: ImageFieldInput
+  content: JSON
+}
+
+input BadgeRelateToManyForUpdateInput {
+  disconnect: [BadgeWhereUniqueInput!]
+  set: [BadgeWhereUniqueInput!]
+  create: [BadgeCreateInput!]
+  connect: [BadgeWhereUniqueInput!]
+}
+
+input ImageFieldInput {
+  upload: Upload!
+}
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
+
+input PortfolioItemUpdateArgs {
+  where: PortfolioItemWhereUniqueInput!
+  data: PortfolioItemUpdateInput!
+}
+
+input PortfolioItemCreateInput {
+  title: String
+  subtitle: String
+  badges: BadgeRelateToManyForCreateInput
+  sourceCodeUrl: String
+  cardImage: ImageFieldInput
+  heroImage: ImageFieldInput
+  content: JSON
+}
+
+input BadgeRelateToManyForCreateInput {
+  create: [BadgeCreateInput!]
+  connect: [BadgeWhereUniqueInput!]
+}
+
+type Badge {
+  id: ID!
+  name: String
+  color: String
+  portfolioItems(where: PortfolioItemWhereInput! = {}, orderBy: [PortfolioItemOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: PortfolioItemWhereUniqueInput): [PortfolioItem!]
+  portfolioItemsCount(where: PortfolioItemWhereInput! = {}): Int
+}
+
+input BadgeWhereUniqueInput {
+  id: ID
+}
+
+input BadgeWhereInput {
+  AND: [BadgeWhereInput!]
+  OR: [BadgeWhereInput!]
+  NOT: [BadgeWhereInput!]
+  id: IDFilter
+  name: StringFilter
+  color: StringNullableFilter
+  portfolioItems: PortfolioItemManyRelationFilter
+}
+
+input StringNullableFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  mode: QueryMode
+  not: StringNullableFilter
+}
+
+input PortfolioItemManyRelationFilter {
+  every: PortfolioItemWhereInput
+  some: PortfolioItemWhereInput
+  none: PortfolioItemWhereInput
+}
+
+input BadgeOrderByInput {
+  id: OrderDirection
+  name: OrderDirection
+  color: OrderDirection
+}
+
+input BadgeUpdateInput {
+  name: String
+  color: String
+  portfolioItems: PortfolioItemRelateToManyForUpdateInput
+}
+
+input PortfolioItemRelateToManyForUpdateInput {
+  disconnect: [PortfolioItemWhereUniqueInput!]
+  set: [PortfolioItemWhereUniqueInput!]
+  create: [PortfolioItemCreateInput!]
+  connect: [PortfolioItemWhereUniqueInput!]
+}
+
+input BadgeUpdateArgs {
+  where: BadgeWhereUniqueInput!
+  data: BadgeUpdateInput!
+}
+
+input BadgeCreateInput {
+  name: String
+  color: String
+  portfolioItems: PortfolioItemRelateToManyForCreateInput
+}
+
+input PortfolioItemRelateToManyForCreateInput {
+  create: [PortfolioItemCreateInput!]
+  connect: [PortfolioItemWhereUniqueInput!]
+}
+
+type Image {
+  id: ID!
+  image: ImageFieldOutput
+  altText: String
+}
+
+input ImageWhereUniqueInput {
+  id: ID
+}
+
+input ImageWhereInput {
+  AND: [ImageWhereInput!]
+  OR: [ImageWhereInput!]
+  NOT: [ImageWhereInput!]
+  id: IDFilter
+  altText: StringFilter
+}
+
+input ImageOrderByInput {
+  id: OrderDirection
+  altText: OrderDirection
+}
+
+input ImageUpdateInput {
+  image: ImageFieldInput
+  altText: String
+}
+
+input ImageUpdateArgs {
+  where: ImageWhereUniqueInput!
+  data: ImageUpdateInput!
+}
+
+input ImageCreateInput {
+  image: ImageFieldInput
+  altText: String
+}
+
 """
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
@@ -284,6 +504,24 @@ type Mutation {
   updateTags(data: [TagUpdateArgs!]!): [Tag]
   deleteTag(where: TagWhereUniqueInput!): Tag
   deleteTags(where: [TagWhereUniqueInput!]!): [Tag]
+  createPortfolioItem(data: PortfolioItemCreateInput!): PortfolioItem
+  createPortfolioItems(data: [PortfolioItemCreateInput!]!): [PortfolioItem]
+  updatePortfolioItem(where: PortfolioItemWhereUniqueInput!, data: PortfolioItemUpdateInput!): PortfolioItem
+  updatePortfolioItems(data: [PortfolioItemUpdateArgs!]!): [PortfolioItem]
+  deletePortfolioItem(where: PortfolioItemWhereUniqueInput!): PortfolioItem
+  deletePortfolioItems(where: [PortfolioItemWhereUniqueInput!]!): [PortfolioItem]
+  createBadge(data: BadgeCreateInput!): Badge
+  createBadges(data: [BadgeCreateInput!]!): [Badge]
+  updateBadge(where: BadgeWhereUniqueInput!, data: BadgeUpdateInput!): Badge
+  updateBadges(data: [BadgeUpdateArgs!]!): [Badge]
+  deleteBadge(where: BadgeWhereUniqueInput!): Badge
+  deleteBadges(where: [BadgeWhereUniqueInput!]!): [Badge]
+  createImage(data: ImageCreateInput!): Image
+  createImages(data: [ImageCreateInput!]!): [Image]
+  updateImage(where: ImageWhereUniqueInput!, data: ImageUpdateInput!): Image
+  updateImages(data: [ImageUpdateArgs!]!): [Image]
+  deleteImage(where: ImageWhereUniqueInput!): Image
+  deleteImages(where: [ImageWhereUniqueInput!]!): [Image]
   endSession: Boolean!
   authenticateUserWithPassword(email: String!, password: String!): UserAuthenticationWithPasswordResult
   createInitialUser(data: CreateInitialUserInput!): UserAuthenticationWithPasswordSuccess!
@@ -316,6 +554,15 @@ type Query {
   tag(where: TagWhereUniqueInput!): Tag
   tags(where: TagWhereInput! = {}, orderBy: [TagOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: TagWhereUniqueInput): [Tag!]
   tagsCount(where: TagWhereInput! = {}): Int
+  portfolioItem(where: PortfolioItemWhereUniqueInput!): PortfolioItem
+  portfolioItems(where: PortfolioItemWhereInput! = {}, orderBy: [PortfolioItemOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: PortfolioItemWhereUniqueInput): [PortfolioItem!]
+  portfolioItemsCount(where: PortfolioItemWhereInput! = {}): Int
+  badge(where: BadgeWhereUniqueInput!): Badge
+  badges(where: BadgeWhereInput! = {}, orderBy: [BadgeOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: BadgeWhereUniqueInput): [Badge!]
+  badgesCount(where: BadgeWhereInput! = {}): Int
+  image(where: ImageWhereUniqueInput!): Image
+  images(where: ImageWhereInput! = {}, orderBy: [ImageOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: ImageWhereUniqueInput): [Image!]
+  imagesCount(where: ImageWhereInput! = {}): Int
   keystone: KeystoneMeta!
   authenticatedItem: AuthenticatedItem
 }
