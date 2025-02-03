@@ -18,7 +18,8 @@ npm run dev
 ```
 
 If you click the three dots button, you get a link to a few things, including the Built in GraphQL API Explorer (http://localhost:3000/api/graphql)
-![Keystone default dashboard](/docs/dashboard-img1.png)
+![Keystone Default Dashboard](/docs/dashboard-img1.png)
+![Keystone GraphQL Example](/docs/graphql-example-posts.png)
 
 ### env vars
 
@@ -27,8 +28,26 @@ If you click the three dots button, you get a link to a few things, including th
 # secret: process.env.SESSION_SECRET,
 # Generate one with:
 # node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
-
 ```
+
+See the .example-env.env for the current state of the .env
+
+### Setting up a Post & Querying its contents
+
+- Create a post in the Keystone Admin Dashboard
+- Visit the GraphQL query tool
+- Try this out:
+  - ```graphql
+    query {
+      posts {
+        id
+        title
+        content {
+          document
+        }
+      }
+    }
+    ```
 
 ---
 
