@@ -47,8 +47,9 @@ See the .example-env.env for the current state of the .env
           }
         }
         ```
-    ![Keystone GraphQL Example](/docs/graphql-example-posts.png)
     ````
+
+![Keystone GraphQL Example](/docs/graphql-example-posts.png)
 
 ---
 
